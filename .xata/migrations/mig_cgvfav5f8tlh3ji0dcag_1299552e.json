@@ -1,0 +1,17 @@
+{
+  "id": "mig_cgvfav5f8tlh3ji0dcag",
+  "parentID": "mig_cgvcaq5f8tlh3ji0abd0",
+  "checksum": "1:1299552ea5c734e9b12e07d871c4fa06b510a65f5177d585407df36be790e30c",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "review_stars",
+          "type": "int",
+          "defaultValue": "0"
+        },
+        "table": "products"
+      }
+    }
+  ]
+}
