@@ -1,0 +1,11 @@
+{
+  "id": "mig_cgv9l7al0p4mtcs1lnsg",
+  "checksum": "1:13a921dda9a492c45f85bbfe4c15f58376fd235428f4e6dc2e8af10cf4096115",
+  "operations": [
+    {
+      "addTable": {
+        "table": "products"
+      }
+    }
+  ]
+}
