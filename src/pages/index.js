@@ -4,22 +4,52 @@ import Image from 'next/image';
 import { FaStar, FaCheck } from 'react-icons/fa';
 import { useDebouncedCallback } from 'use-debounce';
 
+import { getXataClient } from 'src/lib/xata';
+
 import Layout from '@components/Layout';
 import Section from '@components/Section';
 import Container from '@components/Container';
 
 import styles from '@styles/Home.module.scss';
 
-import amazonProducts from '@data/amazoncom-sample-50.csv';
-
 export default function Home({ products, categories }) {
   const [searchQuery, setSearchQuery] = useState();
   const [searchCategory, setSearchCategory] = useState();
+  const [searchResults, setSearchResults] = useState();
+  const [searchCategories, setSearchCategories] = useState();
+
+  const activeProducts = searchResults || products;
+  const activeCategories = searchCategories?.filter(({ name }) => !!name) || [];
 
   // Add debouncing when setting query state to avoid making quick, repetitive
   // requests for every single letter typed
 
   const debouncedSetSearchQuery = useDebouncedCallback((value) => setSearchQuery(value), 250);
+
+  useEffect(() => {
+    if ( !searchQuery && !searchCategory ) {
+      setSearchResults(undefined);
+      return;
+    };
+
+    (async function run() {
+      const { products } = await fetch('/api/search', {
+        method: 'POST',
+        body: JSON.stringify({
+          query: searchQuery,
+          category: searchCategory
+        })
+      }).then(r => r.json());
+      setSearchResults(products);
+    })();
+  }, [searchQuery, searchCategory]);
+
+  useEffect(() => {
+    (async function run() {
+      const { categories } = await fetch('/api/categories').then(r => r.json());
+      setSearchCategories(categories);
+    })();
+  }, []);
 
   /**
    * handleOnSearch
@@ -68,13 +98,13 @@ export default function Home({ products, categories }) {
                       All
                     </label>
                   </li>
-                  { categories.map(category => {
+                  { activeCategories.map(category => {
                     return (
                       <li key={category}>
                         <label className={styles.radio}>
-                          <input className="sr-only" type="radio" name="category" value={category} />
+                          <input className="sr-only" type="radio" name="category" value={category.name} />
                           <span><FaCheck /></span>
-                          { category }
+                          { category.name } ({ category.count })
                         </label>
                       </li>
                     )
@@ -87,7 +117,7 @@ export default function Home({ products, categories }) {
           <h2 className="sr-only">Products</h2>
 
           <ul className={styles.products}>
-            {products.map(product => {
+            {activeProducts.map(product => {
               return (
                 <li key={product.id}>
                   <a className={styles.productImageWrapper} href={product.productUrl} rel="noopener noreferrer">
@@ -110,15 +140,12 @@ export default function Home({ products, categories }) {
 }
 
 export async function getStaticProps() {
-  const products = amazonProducts.map(product => {
-    return {
-      id: product['Uniq Id'],
-      productName: product['Product Name'],
-      category: product['Category'],
-      sellingPrice: product['Selling Price'],
-      image: product['Image'],
-      productUrl: product['Product Url'],
-    }
+  const xata = getXataClient();
+
+  const { records: products } = await xata.db.products.getPaginated({
+    pagination: {
+      size: 15,
+    },
   });
 
   const categories = Array.from(new Set(products.map(({ category }) => category))).filter(c => !!c).sort();
