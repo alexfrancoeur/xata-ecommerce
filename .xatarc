@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://alexf-sdh6hv.us-east-1.xata.sh/db/xata-store",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}

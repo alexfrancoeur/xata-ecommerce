@@ -1,0 +1,12 @@
+{
+  "id": "mig_ch1t2ffoia2lc7i8j1h0",
+  "parentID": "mig_cgvcaq5f8tlh3ji0abd0",
+  "checksum": "1:5b9d78d54f9de2e11f3f03321660cfb754509768bd07e4ed7865f6ec048f8470",
+  "operations": [
+    {
+      "addTable": {
+        "table": "launchTweets"
+      }
+    }
+  ]
+}
