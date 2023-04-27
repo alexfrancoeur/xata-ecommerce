@@ -1,0 +1,16 @@
+{
+  "id": "mig_cgv9l7df8tlh3ji06mig",
+  "parentID": "mig_cgv9l7al0p4mtcs1lnsg",
+  "checksum": "1:b4b4edb2791f0d33aeac72c704c5019f61eea97f428ba8a8dc881bb945e1b0f0",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "uniqId",
+          "type": "string"
+        },
+        "table": "products"
+      }
+    }
+  ]
+}

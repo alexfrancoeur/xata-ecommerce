@@ -1,0 +1,16 @@
+{
+  "id": "mig_ch4rvptqc519uqb4ect0",
+  "parentID": "mig_ch3ka28h1p64nr3qgtc0",
+  "checksum": "1:9ddd466c9f26405cad2a4bb445858ca43262fa101db0e2ec6fb66c646c52b8d5",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "reviews",
+          "type": "string"
+        },
+        "table": "products"
+      }
+    }
+  ]
+}

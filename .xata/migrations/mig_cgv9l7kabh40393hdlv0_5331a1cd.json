@@ -1,0 +1,16 @@
+{
+  "id": "mig_cgv9l7kabh40393hdlv0",
+  "parentID": "mig_cgv9l7il0p4mtcs1lntg",
+  "checksum": "1:5331a1cd187dd29845cf2a376f783c2a242edd75dcf31ebddd290b271e0710bd",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "sellingPrice",
+          "type": "string"
+        },
+        "table": "products"
+      }
+    }
+  ]
+}
